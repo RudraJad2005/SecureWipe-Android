@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Animation tag IDs -->
+    <item name="pulse_animator_tag" type="id" />
+    <item name="wave_animator_tag" type="id" />
+    <item name="scale_animator_tag" type="id" />
+    <item name="fade_animator_tag" type="id" />
+</resources>

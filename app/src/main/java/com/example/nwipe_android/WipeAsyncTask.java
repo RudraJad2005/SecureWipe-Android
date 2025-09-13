@@ -66,12 +66,46 @@ public class WipeAsyncTask extends AsyncTask <WipeJob, WipeJob, WipeJob> {
 
     protected void deleteWipeFiles() {
         Context context = this.mainActivity.getApplicationContext();
-        File filesDir = context.getFilesDir();
-        for (String fileName: filesDir.list()) {
-            if (fileName.startsWith(WipeAsyncTask.WIPE_FILES_PREFIX)) {
-                // Log.i("WipeAsyncTask", String.format("Deleting old wipe file %s.", fileName));
-                context.deleteFile(fileName);
+        
+        try {
+            // Get all wipeable directories and clean up wipe files
+            StorageInfo storageInfo = StorageManager.getStorageInfo(context);
+            if (storageInfo.locations != null) {
+                for (StorageLocation location : storageInfo.locations) {
+                    if (location.directory != null && location.directory.exists()) {
+                        try {
+                            File[] files = location.directory.listFiles();
+                            if (files != null) {
+                                for (File file : files) {
+                                    if (file.getName().startsWith(WipeAsyncTask.WIPE_FILES_PREFIX)) {
+                                        // Log.i("WipeAsyncTask", String.format("Deleting old wipe file %s.", file.getName()));
+                                        file.delete();
+                                    }
+                                }
+                            }
+                        } catch (Exception e) {
+                            Log.w("WipeAsyncTask", "Failed to clean up files in " + location.displayName + ": " + e.getMessage());
+                        }
+                    }
+                }
             }
+        } catch (Exception e) {
+            Log.e("WipeAsyncTask", "Error during wipe file cleanup: " + e.getMessage());
+        }
+        
+        // Also clean up internal files directory (legacy)
+        try {
+            File filesDir = context.getFilesDir();
+            String[] fileNames = filesDir.list();
+            if (fileNames != null) {
+                for (String fileName : fileNames) {
+                    if (fileName.startsWith(WipeAsyncTask.WIPE_FILES_PREFIX)) {
+                        context.deleteFile(fileName);
+                    }
+                }
+            }
+        } catch (Exception e) {
+            Log.w("WipeAsyncTask", "Failed to clean up internal files: " + e.getMessage());
         }
     }
 
@@ -94,20 +128,71 @@ public class WipeAsyncTask extends AsyncTask <WipeJob, WipeJob, WipeJob> {
     }
 
     public void executeWipePass() {
-        long availableBytesCount = this.getAvailableBytesCountInternal();
+        // Get storage information using StorageManager
+        StorageInfo storageInfo = StorageManager.getStorageInfo(this.mainActivity.getApplicationContext());
+        
+        if (!storageInfo.isValid()) {
+            wipeJob.errorMessage = "Cannot access storage: " + storageInfo.errorMessage;
+            return;
+        }
+
+        if (!storageInfo.hasPermissions) {
+            wipeJob.errorMessage = "Storage permissions not granted. Cannot proceed with wiping.";
+            return;
+        }
+
+        long availableBytesCount = storageInfo.availableBytes;
         // Log.i("MainActivity", String.format("Got %d bytes available for writing.", availableBytesCount));
         this.wipeJob.totalBytes = availableBytesCount;
         this.wipeJob.wipedBytes = 0;
         this.updateJobStatus();
 
-        String wipeFileName = String.format("%s%d", WIPE_FILES_PREFIX, System.currentTimeMillis());
+        // Try to wipe multiple storage locations
+        boolean wipeSuccessful = false;
+        String lastError = "";
+
+        for (StorageLocation location : storageInfo.locations) {
+            if (location.isUsable() && !cancelled()) {
+                // If a specific target is set, skip non-matching directories
+                if (wipeJob.targetPath != null) {
+                    try {
+                        java.io.File target = new java.io.File(wipeJob.targetPath);
+                        if (!target.getCanonicalPath().equals(location.directory.getCanonicalPath())) {
+                            continue;
+                        }
+                    } catch (Exception ignored) { continue; }
+                }
+                try {
+                    wipeStorageLocation(location);
+                    wipeSuccessful = true;
+                    break; // Successfully wiped one location, that's enough for this pass
+                } catch (Exception e) {
+                    lastError = e.getMessage();
+                    Log.w("WipeAsyncTask", "Failed to wipe location " + location.displayName + ": " + e.getMessage());
+                    continue; // Try next location
+                }
+            }
+        }
+
+        if (!wipeSuccessful) {
+            wipeJob.errorMessage = "Failed to wipe any storage location. Last error: " + lastError;
+            return;
+        }
+    }
+
+    private void wipeStorageLocation(StorageLocation location) throws Exception {
+        String wipeFileName = String.format("%s%d_%s", WIPE_FILES_PREFIX, System.currentTimeMillis(), 
+                                           location.type.name().toLowerCase());
 
         SecureRandom random = new SecureRandom();
-        // TODO verify that this is a proper way of seeding.
         int randomSeed = random.nextInt();
 
-        // Log.i("WipeAsyncTask", "Starting wipe operation.");
-        try (OutputStream fos = this.getOutputStream(wipeFileName)) {
+        // Log.i("WipeAsyncTask", "Starting wipe operation on " + location.displayName);
+        
+        // Create wipe file in the specific location
+        File wipeFile = new File(location.directory, wipeFileName);
+        
+        try (OutputStream fos = new java.io.FileOutputStream(wipeFile)) {
             Random rnd = new Random();
             rnd.setSeed(randomSeed);
             byte[] bytesBuffer = new byte[WIPE_BUFFER_SIZE];
@@ -150,13 +235,21 @@ public class WipeAsyncTask extends AsyncTask <WipeJob, WipeJob, WipeJob> {
 
         if (!wipeJob.verify) {
             wipeJob.passes_completed++;
+            // Clean up the wipe file
+            try {
+                if (wipeFile.exists()) {
+                    wipeFile.delete();
+                }
+            } catch (Exception e) {
+                Log.w("WipeAsyncTask", "Failed to delete wipe file: " + e.getMessage());
+            }
             return;
         }
 
         this.wipeJob.verifying = true;
 
         // Log.i("WipeAsyncTask", "Starting verifying operation.");
-        try (InputStream fis = this.getInputStream(wipeFileName)) {
+        try (InputStream fis = new java.io.FileInputStream(wipeFile)) {
             Random rnd = new Random();
             rnd.setSeed(randomSeed);
             byte[] bytesBuffer = new byte[WIPE_BUFFER_SIZE];
@@ -193,12 +286,20 @@ public class WipeAsyncTask extends AsyncTask <WipeJob, WipeJob, WipeJob> {
         } catch (IOException e) {
             wipeJob.errorMessage = String.format("Error while verifying wipe file: %s", e.toString());
             // Log.e("WipeAsyncTask", wipeJob.errorMessage);
-            return;
+            throw new Exception("Verification failed: " + e.getMessage());
         }
 
         this.wipeJob.verifying = false;
         wipeJob.passes_completed++;
-        this.deleteWipeFiles();
+        
+        // Clean up the wipe file
+        try {
+            if (wipeFile.exists()) {
+                wipeFile.delete();
+            }
+        } catch (Exception e) {
+            Log.w("WipeAsyncTask", "Failed to delete wipe file after verification: " + e.getMessage());
+        }
     }
 
     protected void onProgressUpdate(WipeJob... wipeJobs) {
@@ -218,14 +319,49 @@ public class WipeAsyncTask extends AsyncTask <WipeJob, WipeJob, WipeJob> {
      * unit testing.
      */
     protected long getAvailableBytesCountInternal() {
-        return WipeAsyncTask.getAvailableBytesCount();
+        return WipeAsyncTask.getAvailableBytesCount(this.mainActivity.getApplicationContext());
     }
 
     /*
-     * Gets the total number of bytes available for writing in the
-     * internal memory.
+     * Gets the total number of bytes available for writing using StorageManager.
      */
-    public static long getAvailableBytesCount() {
+    public static long getAvailableBytesCount(Context context) {
+        try {
+            StorageInfo storageInfo = StorageManager.getStorageInfo(context);
+            if (storageInfo.isValid()) {
+                return storageInfo.availableBytes;
+            } else {
+                // Fallback to internal storage if StorageManager fails
+                return getInternalAvailableBytesCount();
+            }
+        } catch (Exception e) {
+            Log.e("WipeAsyncTask", "Error getting available bytes: " + e.getMessage());
+            return getInternalAvailableBytesCount();
+        }
+    }
+
+    /*
+     * Gets the total number of bytes using StorageManager.
+     */
+    public static long getTotalBytesCount(Context context) {
+        try {
+            StorageInfo storageInfo = StorageManager.getStorageInfo(context);
+            if (storageInfo.isValid()) {
+                return storageInfo.totalBytes;
+            } else {
+                // Fallback to internal storage if StorageManager fails
+                return getInternalTotalBytesCount();
+            }
+        } catch (Exception e) {
+            Log.e("WipeAsyncTask", "Error getting total bytes: " + e.getMessage());
+            return getInternalTotalBytesCount();
+        }
+    }
+
+    /*
+     * Fallback method for internal storage only
+     */
+    private static long getInternalAvailableBytesCount() {
         File path = Environment.getDataDirectory();
         StatFs stat = new StatFs(path.getPath());
         long blockSize = stat.getBlockSizeLong();
@@ -234,9 +370,9 @@ public class WipeAsyncTask extends AsyncTask <WipeJob, WipeJob, WipeJob> {
     }
 
     /*
-     * Gets the total number of bytes of the internal memory.
+     * Fallback method for internal storage only
      */
-    public static long getTotalBytesCount() {
+    private static long getInternalTotalBytesCount() {
         File path = Environment.getDataDirectory();
         StatFs stat = new StatFs(path.getPath());
         long blockSize = stat.getBlockSizeLong();
@@ -244,21 +380,25 @@ public class WipeAsyncTask extends AsyncTask <WipeJob, WipeJob, WipeJob> {
         return totalBlocks * blockSize;
     }
 
-    public static String getTextualAvailableMemory() {
-        long totalBytes = WipeAsyncTask.getAvailableBytesCount();
-        if (totalBytes < (1024 * 1024)) {
-            return String.format("%d bytes", totalBytes);
-        } else {
-            return String.format("%d MB", totalBytes / (1024 * 1024));
-        }
+    public static String getTextualAvailableMemory(Context context) {
+        long totalBytes = WipeAsyncTask.getAvailableBytesCount(context);
+        return formatBytes(totalBytes);
     }
 
-    public static String getTextualTotalMemory() {
-        long totalBytes = WipeAsyncTask.getTotalBytesCount();
-        if (totalBytes < (1024 * 1024)) {
-            return String.format("%d bytes", totalBytes);
+    public static String getTextualTotalMemory(Context context) {
+        long totalBytes = WipeAsyncTask.getTotalBytesCount(context);
+        return formatBytes(totalBytes);
+    }
+
+    private static String formatBytes(long bytes) {
+        if (bytes < 1024) {
+            return String.format("%d bytes", bytes);
+        } else if (bytes < 1024 * 1024) {
+            return String.format("%.1f KB", bytes / 1024.0);
+        } else if (bytes < 1024 * 1024 * 1024) {
+            return String.format("%.1f MB", bytes / (1024.0 * 1024.0));
         } else {
-            return String.format("%d MB", totalBytes / (1024 * 1024));
+            return String.format("%.1f GB", bytes / (1024.0 * 1024.0 * 1024.0));
         }
     }
 }

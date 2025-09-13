@@ -1,107 +1,646 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+    android:fillViewport="true"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".MainActivity"
     tools:showIn="@layout/activity_main">
 
-    <TextView
-        android:id="@+id/number_passes_text_view"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
-        android:text="@string/number_passes_label" />
+        android:orientation="vertical"
+        android:padding="16dp">
 
-    <SeekBar
-        android:id="@+id/number_passes_seek_bar"
-        style="@style/Widget.AppCompat.SeekBar.Discrete"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
-        android:max="10"
-        android:progress="3"
-        android:progressTint="#000000"
-        android:thumbTint="#000000"
-        tools:visibility="visible" />
+        <!-- App Header Section -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginBottom="24dp"
+            android:gravity="center">
 
-    <Switch
-        android:id="@+id/blanking_switch"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
-        android:text="@string/blanking_passes_label"
-        android:textSize="14sp" />
+            <TextView
+                style="@style/AppTheme.Text.AppTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Secure Data Wiping"
+                android:textColor="?attr/colorOnSurface"
+                android:layout_marginBottom="4dp" />
 
-    <Switch
-        android:id="@+id/verify_switch"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
-        android:text="@string/verify_passes_label" />
+            <TextView
+                style="@style/AppTheme.Text.AppSubtitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Professional-grade data destruction"
+                android:layout_marginBottom="0dp" />
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1" />
+        </LinearLayout>
 
-    <TextView
-        android:id="@+id/error_text_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
-        android:textColor="#F44336"
-        android:typeface="monospace"
-        android:visibility="visible" />
+        <!-- Storage Information Card -->
+        <com.google.android.material.card.MaterialCardView
+            style="@style/AppTheme.Card.Storage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp">
 
-    <TextView
-        android:id="@+id/available_size_text_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20dp">
 
-    <TextView
-        android:id="@+id/wipe_text_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
-        android:text=""
-        android:typeface="monospace" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="12dp">
 
-    <ProgressBar
-        android:id="@+id/wipe_progress_bar"
-        style="@android:style/Widget.ProgressBar.Horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
-        android:indeterminate="false"
-        android:visibility="visible" />
+                    <ImageView
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:src="@drawable/ic_storage_24"
+                        android:tint="?attr/colorOnPrimaryContainer"
+                        android:layout_marginEnd="12dp" />
 
-    <Button
-        android:id="@+id/start_wipe_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="onMainButtonClick"
-        android:text="@string/start_wipe_button_label"
-        android:typeface="monospace" />
+                    <TextView
+                        style="@style/AppTheme.Text.CardTitle"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Storage Information"
+                        android:textColor="?attr/colorOnPrimaryContainer"
+                        android:layout_marginBottom="0dp" />
 
-</LinearLayout>
+                </LinearLayout>
+
+                <!-- Storage Metrics Section -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="12dp">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:layout_marginEnd="16dp">
+
+                        <TextView
+                            android:id="@+id/available_size_value"
+                            style="@style/AppTheme.Text.MetricValue"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="?attr/colorOnPrimaryContainer"
+                            tools:text="128GB" />
+
+                        <TextView
+                            style="@style/AppTheme.Text.MetricLabel"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Available"
+                            android:textColor="?attr/colorOnPrimaryContainer"
+                            android:alpha="0.7" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/total_size_value"
+                            style="@style/AppTheme.Text.MetricValue"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="?attr/colorOnPrimaryContainer"
+                            tools:text="256GB" />
+
+                        <TextView
+                            style="@style/AppTheme.Text.MetricLabel"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Total"
+                            android:textColor="?attr/colorOnPrimaryContainer"
+                            android:alpha="0.7" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/available_size_text_view"
+                    style="@style/AppTheme.Text.CardSubtitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="?attr/colorOnPrimaryContainer"
+                    android:alpha="0.8"
+                    android:layout_marginBottom="8dp"
+                    tools:text="Ready for secure wiping operations" />
+
+                <com.google.android.material.progressindicator.LinearProgressIndicator
+                    android:id="@+id/storage_progress_bar"
+                    style="@style/AppTheme.ProgressBar.Linear"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:progress="50"
+                    android:layout_margin="0dp"
+                    app:indicatorColor="?attr/colorOnPrimaryContainer"
+                    app:trackColor="@color/progress_background" />
+
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Configuration Card -->
+        <com.google.android.material.card.MaterialCardView
+            style="@style/AppTheme.Card.Configuration"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="16dp">
+
+                    <ImageView
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:src="@drawable/ic_settings_24"
+                        android:tint="?attr/colorOnSecondaryContainer"
+                        android:layout_marginEnd="12dp" />
+
+                    <TextView
+                        style="@style/AppTheme.Text.CardTitle"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Wipe Configuration"
+                        android:textColor="?attr/colorOnSecondaryContainer"
+                        android:layout_marginBottom="0dp" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/number_passes_text_view"
+                    style="@style/AppTheme.Text.LabelLarge"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/number_passes_label"
+                    android:textColor="?attr/colorOnSecondaryContainer"
+                    android:layout_marginBottom="8dp" />
+
+                <com.google.android.material.slider.Slider
+                    android:id="@+id/number_passes_seek_bar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:valueFrom="1"
+                    android:valueTo="11"
+                    android:value="4"
+                    android:stepSize="1"
+                    android:layout_marginBottom="16dp" />
+
+                <com.google.android.material.switchmaterial.SwitchMaterial
+                    android:id="@+id/verify_switch"
+                    style="@style/AppTheme.Switch"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/verify_passes_label"
+                    android:textAppearance="@style/AppTheme.Text.BodyMedium"
+                    android:textColor="?attr/colorOnSecondaryContainer"
+                    android:layout_marginBottom="8dp" />
+
+                <com.google.android.material.switchmaterial.SwitchMaterial
+                    android:id="@+id/blanking_switch"
+                    style="@style/AppTheme.Switch"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/blanking_passes_label"
+                    android:textAppearance="@style/AppTheme.Text.BodyMedium"
+                    android:textColor="?attr/colorOnSecondaryContainer" />
+
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Progress Card (Initially Hidden) -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/progress_card"
+            style="@style/AppTheme.Card.Progress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="16dp">
+
+                    <com.google.android.material.progressindicator.CircularProgressIndicator
+                        android:id="@+id/circular_progress"
+                        style="@style/AppTheme.ProgressBar.Circular"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:layout_marginEnd="12dp"
+                        android:indeterminate="true"
+                        app:indicatorColor="?attr/colorOnTertiaryContainer"
+                        app:trackColor="@color/progress_background" />
+
+                    <TextView
+                        style="@style/AppTheme.Text.CardTitle"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Wipe Progress"
+                        android:textColor="?attr/colorOnTertiaryContainer"
+                        android:layout_marginBottom="0dp" />
+
+                </LinearLayout>
+
+                <!-- Progress Details Section -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="8dp">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:layout_marginEnd="8dp">
+
+                        <TextView
+                            android:id="@+id/current_pass_value"
+                            style="@style/AppTheme.Text.MetricValue"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="?attr/colorOnTertiaryContainer"
+                            tools:text="2" />
+
+                        <TextView
+                            style="@style/AppTheme.Text.MetricLabel"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Current Pass"
+                            android:textColor="?attr/colorOnTertiaryContainer"
+                            android:alpha="0.7" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:layout_marginEnd="8dp">
+
+                        <TextView
+                            android:id="@+id/progress_percentage_value"
+                            style="@style/AppTheme.Text.MetricValue"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="?attr/colorOnTertiaryContainer"
+                            tools:text="75%" />
+
+                        <TextView
+                            style="@style/AppTheme.Text.MetricLabel"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Complete"
+                            android:textColor="?attr/colorOnTertiaryContainer"
+                            android:alpha="0.7" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/wipe_speed_value"
+                            style="@style/AppTheme.Text.MetricValue"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="?attr/colorOnTertiaryContainer"
+                            android:text="--"
+                            tools:text="25.3 MB/s" />
+
+                        <TextView
+                            style="@style/AppTheme.Text.MetricLabel"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Speed"
+                            android:textColor="?attr/colorOnTertiaryContainer"
+                            android:alpha="0.7" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+                
+                <!-- Time Information Section -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="12dp">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:layout_marginEnd="8dp">
+
+                        <TextView
+                            android:id="@+id/elapsed_time_value"
+                            style="@style/AppTheme.Text.BodyMedium"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="?attr/colorOnTertiaryContainer"
+                            android:text="--"
+                            android:alpha="0.9"
+                            tools:text="2m 30s" />
+
+                        <TextView
+                            style="@style/AppTheme.Text.MetricLabel"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Elapsed"
+                            android:textColor="?attr/colorOnTertiaryContainer"
+                            android:alpha="0.7" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/remaining_time_value"
+                            style="@style/AppTheme.Text.BodyMedium"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="?attr/colorOnTertiaryContainer"
+                            android:text="Calculating..."
+                            android:alpha="0.9"
+                            tools:text="8m 15s" />
+
+                        <TextView
+                            style="@style/AppTheme.Text.MetricLabel"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Remaining"
+                            android:textColor="?attr/colorOnTertiaryContainer"
+                            android:alpha="0.7" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/wipe_text_view"
+                    style="@style/AppTheme.Text.CardSubtitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="?attr/colorOnTertiaryContainer"
+                    android:alpha="0.8"
+                    android:layout_marginBottom="12dp"
+                    tools:text="Securely overwriting data with random patterns" />
+
+                <com.google.android.material.progressindicator.LinearProgressIndicator
+                    android:id="@+id/wipe_progress_bar"
+                    style="@style/AppTheme.ProgressBar.Linear"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:progress="75"
+                    android:layout_margin="0dp"
+                    app:indicatorColor="?attr/colorOnTertiaryContainer"
+                    app:trackColor="@color/progress_background"
+                    app:trackCornerRadius="4dp" />
+
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Status Messages Card -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/status_card"
+            style="@style/AppTheme.Card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="16dp"
+                android:gravity="center_vertical">
+
+                <ImageView
+                    android:id="@+id/status_icon"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginEnd="12dp"
+                    android:src="@drawable/ic_info_24"
+                    tools:src="@drawable/ic_error_24" />
+
+                <TextView
+                    android:id="@+id/error_text_view"
+                    style="@style/AppTheme.Text.StatusText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textColor="?attr/colorOnSurface"
+                    tools:text="Status message will appear here" />
+
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Selected Folders Card -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/selected_folders_card"
+            style="@style/AppTheme.Card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="12dp">
+
+                    <ImageView
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:src="@drawable/ic_folder_24"
+                        android:tint="?attr/colorOnPrimaryContainer"
+                        android:layout_marginEnd="12dp" />
+
+                    <TextView
+                        style="@style/AppTheme.Text.CardTitle"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Selected Folders"
+                        android:textColor="?attr/colorOnPrimaryContainer"
+                        android:layout_marginBottom="0dp" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/selected_folders_summary_text"
+                    style="@style/AppTheme.Text.CardSubtitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="?attr/colorOnPrimaryContainer"
+                    android:alpha="0.9"
+                    android:layout_marginBottom="8dp"
+                    tools:text="3 folders selected for wipe" />
+
+                <TextView
+                    android:id="@+id/selected_folders_list_text"
+                    style="@style/AppTheme.Text.BodyMedium"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="?attr/colorOnPrimaryContainer"
+                    android:alpha="0.8"
+                    android:layout_marginBottom="12dp"
+                    tools:text="/storage/XXXX-XXXX/Documents\n/storage/emulated/0/Downloads" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/manage_selected_folders_button"
+                        style="@style/AppTheme.Button.Secondary.Animated"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="8dp"
+                        android:onClick="onManageSelectedFoldersClick"
+                        android:text="Manage"
+                        app:icon="@drawable/ic_list_24"
+                        app:iconGravity="textStart"
+                        app:iconPadding="8dp" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/clear_selected_folders_button"
+                        style="@style/AppTheme.Button.Secondary.Animated"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginStart="8dp"
+                        android:onClick="onClearSelectedFoldersClick"
+                        android:text="Clear"
+                        app:icon="@drawable/ic_delete_24"
+                        app:iconGravity="textStart"
+                        app:iconPadding="8dp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Action Buttons -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="16dp">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/test_backend_button"
+                style="@style/AppTheme.Button.Secondary.Animated"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginEnd="8dp"
+                android:onClick="onTestBackendClick"
+                android:text="Test Backend"
+                android:textAppearance="@style/AppTheme.Text.ButtonText"
+                app:icon="@drawable/ic_science_24"
+                app:iconGravity="textStart"
+                app:iconPadding="8dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/browse_files_button"
+                style="@style/AppTheme.Button.Secondary.Animated"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="8dp"
+                android:onClick="onBrowseFilesClick"
+                android:text="Browse Files"
+                android:textAppearance="@style/AppTheme.Text.ButtonText"
+                app:icon="@drawable/ic_folder_24"
+                app:iconGravity="textStart"
+                app:iconPadding="8dp" />
+
+        </LinearLayout>
+
+        <!-- Main Action Button -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/start_wipe_button"
+            style="@style/AppTheme.Button.Animated"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:onClick="onMainButtonClick"
+            android:text="START WIPE"
+            android:textAppearance="@style/AppTheme.Text.ButtonText"
+            android:textSize="18sp"
+            android:layout_marginBottom="16dp"
+            app:icon="@drawable/ic_rocket_launch_24"
+            app:iconGravity="textStart"
+            app:iconPadding="12dp"
+            app:iconSize="28dp" />
+
+    </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>

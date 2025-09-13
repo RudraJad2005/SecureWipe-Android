@@ -1,11 +1,36 @@
 <resources>
 
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+    <!-- Base application theme using Material Design 3 -->
+    <style name="AppTheme" parent="Theme.Material3.DayNight">
+        <!-- Material Design 3 color attributes -->
+        <item name="colorPrimary">@color/md_theme_light_primary</item>
+        <item name="colorOnPrimary">@color/md_theme_light_onPrimary</item>
+        <item name="colorPrimaryContainer">@color/md_theme_light_primaryContainer</item>
+        <item name="colorOnPrimaryContainer">@color/md_theme_light_onPrimaryContainer</item>
+        <item name="colorSecondary">@color/md_theme_light_secondary</item>
+        <item name="colorOnSecondary">@color/md_theme_light_onSecondary</item>
+        <item name="colorSecondaryContainer">@color/md_theme_light_secondaryContainer</item>
+        <item name="colorOnSecondaryContainer">@color/md_theme_light_onSecondaryContainer</item>
+        <item name="colorTertiary">@color/md_theme_light_tertiary</item>
+        <item name="colorOnTertiary">@color/md_theme_light_onTertiary</item>
+        <item name="colorTertiaryContainer">@color/md_theme_light_tertiaryContainer</item>
+        <item name="colorOnTertiaryContainer">@color/md_theme_light_onTertiaryContainer</item>
+        <item name="colorError">@color/md_theme_light_error</item>
+        <item name="colorOnError">@color/md_theme_light_onError</item>
+        <item name="colorErrorContainer">@color/md_theme_light_errorContainer</item>
+        <item name="colorOnErrorContainer">@color/md_theme_light_onErrorContainer</item>
+        <item name="android:colorBackground">@color/md_theme_light_background</item>
+        <item name="colorOnBackground">@color/md_theme_light_onBackground</item>
+        <item name="colorSurface">@color/md_theme_light_surface</item>
+        <item name="colorOnSurface">@color/md_theme_light_onSurface</item>
+        <item name="colorSurfaceVariant">@color/md_theme_light_surfaceVariant</item>
+        <item name="colorOnSurfaceVariant">@color/md_theme_light_onSurfaceVariant</item>
+        <item name="colorOutline">@color/md_theme_light_outline</item>
+        <item name="colorOutlineVariant">@color/md_theme_light_outlineVariant</item>
+        
+        <!-- Legacy color attributes for compatibility -->
+        <item name="colorPrimaryDark">@color/md_theme_light_primary</item>
+        <item name="colorAccent">@color/md_theme_light_secondary</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -13,8 +38,366 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <!-- Material Design 3 component styles -->
+    <style name="AppTheme.Card" parent="Widget.Material3.CardView.Elevated">
+        <item name="cardCornerRadius">12dp</item>
+        <item name="cardElevation">2dp</item>
+        <item name="android:layout_margin">8dp</item>
+        <item name="contentPadding">16dp</item>
+    </style>
 
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="AppTheme.Button.Primary" parent="Widget.Material3.Button">
+        <item name="android:layout_height">48dp</item>
+        <item name="android:layout_margin">8dp</item>
+        <item name="cornerRadius">24dp</item>
+    </style>
+
+    <style name="AppTheme.Button.Secondary" parent="Widget.Material3.Button.OutlinedButton">
+        <item name="android:layout_height">48dp</item>
+        <item name="android:layout_margin">8dp</item>
+        <item name="cornerRadius">24dp</item>
+    </style>
+
+    <style name="AppTheme.Switch" parent="Widget.Material3.CompoundButton.Switch">
+        <item name="android:layout_marginBottom">8dp</item>
+    </style>
+
+    <style name="AppTheme.Slider" parent="Widget.Material3.Slider">
+        <item name="android:layout_marginBottom">8dp</item>
+    </style>
+
+    <!-- Material Design 3 Typography Scale -->
+    
+    <!-- Display Typography -->
+    <style name="AppTheme.Text.DisplayLarge" parent="@style/TextAppearance.Material3.DisplayLarge">
+        <item name="android:textColor">?attr/colorOnSurface</item>
+        <item name="android:layout_marginBottom">24dp</item>
+        <item name="android:fontFamily">sans-serif-light</item>
+        <item name="android:letterSpacing">-0.025</item>
+    </style>
+
+    <style name="AppTheme.Text.DisplayMedium" parent="@style/TextAppearance.Material3.DisplayMedium">
+        <item name="android:textColor">?attr/colorOnSurface</item>
+        <item name="android:layout_marginBottom">20dp</item>
+        <item name="android:fontFamily">sans-serif-light</item>
+        <item name="android:letterSpacing">0</item>
+    </style>
+
+    <style name="AppTheme.Text.DisplaySmall" parent="@style/TextAppearance.Material3.DisplaySmall">
+        <item name="android:textColor">?attr/colorOnSurface</item>
+        <item name="android:layout_marginBottom">16dp</item>
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:letterSpacing">0</item>
+    </style>
+
+    <!-- Headline Typography -->
+    <style name="AppTheme.Text.HeadlineLarge" parent="@style/TextAppearance.Material3.HeadlineLarge">
+        <item name="android:textColor">?attr/colorOnSurface</item>
+        <item name="android:layout_marginBottom">16dp</item>
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:letterSpacing">0</item>
+    </style>
+
+    <style name="AppTheme.Text.HeadlineMedium" parent="@style/TextAppearance.Material3.HeadlineMedium">
+        <item name="android:textColor">?attr/colorOnSurface</item>
+        <item name="android:layout_marginBottom">12dp</item>
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:letterSpacing">0</item>
+    </style>
+
+    <style name="AppTheme.Text.HeadlineSmall" parent="@style/TextAppearance.Material3.HeadlineSmall">
+        <item name="android:textColor">?attr/colorOnSurface</item>
+        <item name="android:layout_marginBottom">8dp</item>
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:letterSpacing">0</item>
+    </style>
+
+    <!-- Title Typography -->
+    <style name="AppTheme.Text.TitleLarge" parent="@style/TextAppearance.Material3.TitleLarge">
+        <item name="android:textColor">?attr/colorOnSurface</item>
+        <item name="android:layout_marginBottom">8dp</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:letterSpacing">0</item>
+    </style>
+
+    <style name="AppTheme.Text.TitleMedium" parent="@style/TextAppearance.Material3.TitleMedium">
+        <item name="android:textColor">?attr/colorOnSurface</item>
+        <item name="android:layout_marginBottom">6dp</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:letterSpacing">0.015</item>
+    </style>
+
+    <style name="AppTheme.Text.TitleSmall" parent="@style/TextAppearance.Material3.TitleSmall">
+        <item name="android:textColor">?attr/colorOnSurface</item>
+        <item name="android:layout_marginBottom">4dp</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:letterSpacing">0.01</item>
+    </style>
+
+    <!-- Label Typography -->
+    <style name="AppTheme.Text.LabelLarge" parent="@style/TextAppearance.Material3.LabelLarge">
+        <item name="android:textColor">?attr/colorOnSurface</item>
+        <item name="android:layout_marginBottom">4dp</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:letterSpacing">0.01</item>
+    </style>
+
+    <style name="AppTheme.Text.LabelMedium" parent="@style/TextAppearance.Material3.LabelMedium">
+        <item name="android:textColor">?attr/colorOnSurface</item>
+        <item name="android:layout_marginBottom">4dp</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:letterSpacing">0.05</item>
+    </style>
+
+    <style name="AppTheme.Text.LabelSmall" parent="@style/TextAppearance.Material3.LabelSmall">
+        <item name="android:textColor">?attr/colorOnSurfaceVariant</item>
+        <item name="android:layout_marginBottom">2dp</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:letterSpacing">0.05</item>
+    </style>
+
+    <!-- Body Typography -->
+    <style name="AppTheme.Text.BodyLarge" parent="@style/TextAppearance.Material3.BodyLarge">
+        <item name="android:textColor">?attr/colorOnSurface</item>
+        <item name="android:layout_marginBottom">6dp</item>
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:letterSpacing">0.015</item>
+        <item name="android:lineSpacingExtra">4dp</item>
+    </style>
+
+    <style name="AppTheme.Text.BodyMedium" parent="@style/TextAppearance.Material3.BodyMedium">
+        <item name="android:textColor">?attr/colorOnSurface</item>
+        <item name="android:layout_marginBottom">4dp</item>
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:letterSpacing">0.025</item>
+        <item name="android:lineSpacingExtra">2dp</item>
+    </style>
+
+    <style name="AppTheme.Text.BodySmall" parent="@style/TextAppearance.Material3.BodySmall">
+        <item name="android:textColor">?attr/colorOnSurfaceVariant</item>
+        <item name="android:layout_marginBottom">2dp</item>
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:letterSpacing">0.04</item>
+    </style>
+
+    <!-- Legacy Typography Aliases for Backward Compatibility -->
+    <style name="AppTheme.Text.Headline" parent="AppTheme.Text.HeadlineSmall" />
+    <style name="AppTheme.Text.Body" parent="AppTheme.Text.BodyMedium" />
+    <style name="AppTheme.Text.Caption" parent="AppTheme.Text.BodySmall" />
+
+    <!-- Specialized Typography Styles -->
+    <style name="AppTheme.Text.CardTitle" parent="AppTheme.Text.TitleMedium">
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_marginBottom">8dp</item>
+    </style>
+
+    <style name="AppTheme.Text.CardSubtitle" parent="AppTheme.Text.BodyMedium">
+        <item name="android:textColor">?attr/colorOnSurfaceVariant</item>
+        <item name="android:layout_marginBottom">12dp</item>
+    </style>
+
+    <style name="AppTheme.Text.ButtonText" parent="AppTheme.Text.LabelLarge">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:letterSpacing">0.125</item>
+        <item name="android:layout_marginBottom">0dp</item>
+    </style>
+
+    <style name="AppTheme.Text.StatusText" parent="AppTheme.Text.BodyMedium">
+        <item name="android:textStyle">normal</item>
+        <item name="android:layout_marginBottom">0dp</item>
+    </style>
+
+    <style name="AppTheme.Text.ProgressText" parent="AppTheme.Text.BodyLarge">
+        <item name="android:textStyle">normal</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:layout_marginBottom">8dp</item>
+    </style>
+
+    <style name="AppTheme.Text.MetricValue" parent="AppTheme.Text.HeadlineMedium">
+        <item name="android:textStyle">bold</item>
+        <item name="android:fontFamily">sans-serif-condensed</item>
+        <item name="android:layout_marginBottom">2dp</item>
+    </style>
+
+    <style name="AppTheme.Text.MetricLabel" parent="AppTheme.Text.LabelMedium">
+        <item name="android:textColor">?attr/colorOnSurfaceVariant</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:layout_marginBottom">0dp</item>
+    </style>
+
+    <!-- Additional Specialized Typography -->
+    <style name="AppTheme.Text.AppTitle" parent="AppTheme.Text.HeadlineMedium">
+        <item name="android:textStyle">bold</item>
+        <item name="android:letterSpacing">-0.01</item>
+        <item name="android:fontFamily">sans-serif-light</item>
+    </style>
+
+    <style name="AppTheme.Text.AppSubtitle" parent="AppTheme.Text.BodyMedium">
+        <item name="android:textColor">?attr/colorOnSurfaceVariant</item>
+        <item name="android:letterSpacing">0.02</item>
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+
+    <style name="AppTheme.Text.SectionHeader" parent="AppTheme.Text.TitleSmall">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:letterSpacing">0.1</item>
+        <item name="android:layout_marginTop">16dp</item>
+        <item name="android:layout_marginBottom">8dp</item>
+    </style>
+
+    <style name="AppTheme.Text.Emphasis" parent="AppTheme.Text.BodyMedium">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">?attr/colorPrimary</item>
+    </style>
+
+    <style name="AppTheme.Text.Monospace" parent="AppTheme.Text.BodySmall">
+        <item name="android:fontFamily">monospace</item>
+        <item name="android:textColor">?attr/colorOnSurfaceVariant</item>
+        <item name="android:letterSpacing">0.05</item>
+    </style>
+
+    <!-- AppBar overlay styles for compatibility -->
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.Material3.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.Material3.Light" />
+
+    <!-- Enhanced Card Styles -->
+    <style name="AppTheme.Card.Elevated" parent="AppTheme.Card">
+        <item name="cardElevation">8dp</item>
+        <item name="cardCornerRadius">16dp</item>
+    </style>
+
+    <style name="AppTheme.Card.Storage" parent="AppTheme.Card.Elevated">
+        <item name="cardBackgroundColor">@color/md_theme_light_primaryContainer</item>
+    </style>
+
+    <style name="AppTheme.Card.Configuration" parent="AppTheme.Card.Elevated">
+        <item name="cardBackgroundColor">@color/md_theme_light_secondaryContainer</item>
+    </style>
+
+    <style name="AppTheme.Card.Progress" parent="AppTheme.Card.Elevated">
+        <item name="cardBackgroundColor">@color/md_theme_light_tertiaryContainer</item>
+    </style>
+
+    <!-- Enhanced Button Styles with Animations -->
+    <style name="AppTheme.Button.FAB" parent="Widget.Material3.FloatingActionButton.Primary">
+        <item name="android:layout_margin">16dp</item>
+        <item name="elevation">6dp</item>
+        <item name="android:stateListAnimator">@animator/button_elevation</item>
+    </style>
+
+    <style name="AppTheme.Button.Chip" parent="Widget.Material3.Chip.Assist">
+        <item name="android:layout_margin">4dp</item>
+        <item name="chipCornerRadius">16dp</item>
+    </style>
+
+    <style name="AppTheme.Button.Animated" parent="Widget.Material3.Button">
+        <item name="android:layout_height">48dp</item>
+        <item name="android:layout_margin">8dp</item>
+        <item name="cornerRadius">24dp</item>
+        <item name="android:background">@drawable/button_ripple_primary</item>
+        <item name="android:stateListAnimator">@animator/button_elevation</item>
+    </style>
+
+    <style name="AppTheme.Button.Secondary.Animated" parent="Widget.Material3.Button.OutlinedButton">
+        <item name="android:layout_height">48dp</item>
+        <item name="android:layout_margin">8dp</item>
+        <item name="cornerRadius">24dp</item>
+        <item name="android:background">@drawable/button_ripple_secondary</item>
+        <item name="android:stateListAnimator">@animator/button_elevation</item>
+    </style>
+
+    <!-- Progress Indicator Styles -->
+    <style name="AppTheme.ProgressBar.Circular" parent="Widget.Material3.CircularProgressIndicator">
+        <item name="android:layout_width">48dp</item>
+        <item name="android:layout_height">48dp</item>
+        <item name="indicatorColor">@color/md_theme_light_primary</item>
+        <item name="trackColor">@color/progress_background</item>
+    </style>
+
+    <style name="AppTheme.ProgressBar.Linear" parent="Widget.Material3.LinearProgressIndicator">
+        <item name="android:layout_height">8dp</item>
+        <item name="android:layout_margin">8dp</item>
+        <item name="indicatorColor">@color/md_theme_light_primary</item>
+        <item name="trackColor">@color/progress_background</item>
+        <item name="trackCornerRadius">4dp</item>
+    </style>
+
+    <!-- Status and Semantic Typography -->
+    <style name="AppTheme.Text.Success" parent="AppTheme.Text.BodyMedium">
+        <item name="android:textColor">@color/success</item>
+        <item name="android:drawablePadding">8dp</item>
+        <item name="android:layout_marginBottom">0dp</item>
+    </style>
+
+    <style name="AppTheme.Text.Warning" parent="AppTheme.Text.BodyMedium">
+        <item name="android:textColor">@color/warning</item>
+        <item name="android:drawablePadding">8dp</item>
+        <item name="android:layout_marginBottom">0dp</item>
+    </style>
+
+    <style name="AppTheme.Text.Error" parent="AppTheme.Text.BodyMedium">
+        <item name="android:textColor">@color/error</item>
+        <item name="android:drawablePadding">8dp</item>
+        <item name="android:layout_marginBottom">0dp</item>
+    </style>
+
+    <style name="AppTheme.Text.Info" parent="AppTheme.Text.BodyMedium">
+        <item name="android:textColor">@color/info</item>
+        <item name="android:drawablePadding">8dp</item>
+        <item name="android:layout_marginBottom">0dp</item>
+    </style>
+
+    <!-- Container-Specific Typography -->
+    <style name="AppTheme.Text.OnPrimaryContainer" parent="AppTheme.Text.BodyMedium">
+        <item name="android:textColor">?attr/colorOnPrimaryContainer</item>
+    </style>
+
+    <style name="AppTheme.Text.OnSecondaryContainer" parent="AppTheme.Text.BodyMedium">
+        <item name="android:textColor">?attr/colorOnSecondaryContainer</item>
+    </style>
+
+    <style name="AppTheme.Text.OnTertiaryContainer" parent="AppTheme.Text.BodyMedium">
+        <item name="android:textColor">?attr/colorOnTertiaryContainer</item>
+    </style>
+
+    <style name="AppTheme.Text.OnSurface" parent="AppTheme.Text.BodyMedium">
+        <item name="android:textColor">?attr/colorOnSurface</item>
+    </style>
+
+    <style name="AppTheme.Text.OnSurfaceVariant" parent="AppTheme.Text.BodySmall">
+        <item name="android:textColor">?attr/colorOnSurfaceVariant</item>
+    </style>
+
+    <!-- Interactive Typography -->
+    <style name="AppTheme.Text.Clickable" parent="AppTheme.Text.BodyMedium">
+        <item name="android:textColor">?attr/colorPrimary</item>
+        <item name="android:background">?attr/selectableItemBackground</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+    </style>
+
+    <style name="AppTheme.Text.Link" parent="AppTheme.Text.Clickable">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <!-- Legacy Aliases -->
+    <style name="AppTheme.Text.Display" parent="AppTheme.Text.DisplaySmall" />
+    <style name="AppTheme.Text.Title" parent="AppTheme.Text.TitleLarge" />
+
+    <!-- Icon Styles -->
+    <style name="AppTheme.Icon">
+        <item name="android:layout_width">24dp</item>
+        <item name="android:layout_height">24dp</item>
+        <item name="android:tint">?attr/colorOnSurface</item>
+    </style>
+
+    <style name="AppTheme.Icon.Large">
+        <item name="android:layout_width">32dp</item>
+        <item name="android:layout_height">32dp</item>
+        <item name="android:tint">?attr/colorPrimary</item>
+    </style>
 
 </resources>

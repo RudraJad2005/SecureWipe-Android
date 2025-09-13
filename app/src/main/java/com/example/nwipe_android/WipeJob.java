@@ -18,6 +18,31 @@ public class WipeJob {
     public boolean blank;
 
     /**
+     * Optional pre-wipe deletion phase.
+     * When true, engine will attempt to delete existing user files on accessible storage
+     * (e.g., external storage excluding critical system directories) before overwriting.
+     */
+    public boolean deleteExistingFirst = true;
+    public boolean deletionCompleted = false;
+
+    /**
+     * Optional: when set, wiping is restricted to this storage root only (e.g., a USB drive path).
+     * If null or empty, the engine will wipe the default storage locations as before.
+     */
+    public String targetPath = null; // absolute directory path to wipe only
+    public String targetName = null; // display name for logs/UI
+
+    /**
+     * Optional: when set, only the provided folders (and their contents) will be securely wiped.
+     * Absolute directory paths. This takes precedence over targetPath if non-empty.
+     */
+    public java.util.List<String> targetFolders = new java.util.ArrayList<>();
+
+    public boolean hasSelectedFolders() {
+        return targetFolders != null && !targetFolders.isEmpty();
+    }
+
+    /**
      * Completion status.
      */
     public int passes_completed = 0;

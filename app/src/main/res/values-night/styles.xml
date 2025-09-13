@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Base application theme using Material Design 3 Dark -->
+    <style name="AppTheme" parent="Theme.Material3.DayNight">
+        <!-- Material Design 3 dark color attributes -->
+        <item name="colorPrimary">@color/md_theme_dark_primary</item>
+        <item name="colorOnPrimary">@color/md_theme_dark_onPrimary</item>
+        <item name="colorPrimaryContainer">@color/md_theme_dark_primaryContainer</item>
+        <item name="colorOnPrimaryContainer">@color/md_theme_dark_onPrimaryContainer</item>
+        <item name="colorSecondary">@color/md_theme_dark_secondary</item>
+        <item name="colorOnSecondary">@color/md_theme_dark_onSecondary</item>
+        <item name="colorSecondaryContainer">@color/md_theme_dark_secondaryContainer</item>
+        <item name="colorOnSecondaryContainer">@color/md_theme_dark_onSecondaryContainer</item>
+        <item name="colorTertiary">@color/md_theme_dark_tertiary</item>
+        <item name="colorOnTertiary">@color/md_theme_dark_onTertiary</item>
+        <item name="colorTertiaryContainer">@color/md_theme_dark_tertiaryContainer</item>
+        <item name="colorOnTertiaryContainer">@color/md_theme_dark_onTertiaryContainer</item>
+        <item name="colorError">@color/md_theme_dark_error</item>
+        <item name="colorOnError">@color/md_theme_dark_onError</item>
+        <item name="colorErrorContainer">@color/md_theme_dark_errorContainer</item>
+        <item name="colorOnErrorContainer">@color/md_theme_dark_onErrorContainer</item>
+        <item name="android:colorBackground">@color/md_theme_dark_background</item>
+        <item name="colorOnBackground">@color/md_theme_dark_onBackground</item>
+        <item name="colorSurface">@color/md_theme_dark_surface</item>
+        <item name="colorOnSurface">@color/md_theme_dark_onSurface</item>
+        <item name="colorSurfaceVariant">@color/md_theme_dark_surfaceVariant</item>
+        <item name="colorOnSurfaceVariant">@color/md_theme_dark_onSurfaceVariant</item>
+        <item name="colorOutline">@color/md_theme_dark_outline</item>
+        <item name="colorOutlineVariant">@color/md_theme_dark_outlineVariant</item>
+        
+        <!-- Legacy color attributes for compatibility -->
+        <item name="colorPrimaryDark">@color/md_theme_dark_primary</item>
+        <item name="colorAccent">@color/md_theme_dark_secondary</item>
+    </style>
+
+    <!-- Dark theme specific card styles -->
+    <style name="AppTheme.Card.Storage" parent="AppTheme.Card.Elevated">
+        <item name="cardBackgroundColor">@color/md_theme_dark_primaryContainer</item>
+    </style>
+
+    <style name="AppTheme.Card.Configuration" parent="AppTheme.Card.Elevated">
+        <item name="cardBackgroundColor">@color/md_theme_dark_secondaryContainer</item>
+    </style>
+
+    <style name="AppTheme.Card.Progress" parent="AppTheme.Card.Elevated">
+        <item name="cardBackgroundColor">@color/md_theme_dark_tertiaryContainer</item>
+    </style>
+
+    <!-- Dark theme progress indicators -->
+    <style name="AppTheme.ProgressBar.Circular" parent="Widget.Material3.CircularProgressIndicator">
+        <item name="android:layout_width">48dp</item>
+        <item name="android:layout_height">48dp</item>
+        <item name="indicatorColor">@color/md_theme_dark_primary</item>
+        <item name="trackColor">@color/progress_background_dark</item>
+    </style>
+
+    <style name="AppTheme.ProgressBar.Linear" parent="Widget.Material3.LinearProgressIndicator">
+        <item name="android:layout_height">8dp</item>
+        <item name="android:layout_margin">8dp</item>
+        <item name="indicatorColor">@color/md_theme_dark_primary</item>
+        <item name="trackColor">@color/progress_background_dark</item>
+        <item name="trackCornerRadius">4dp</item>
+    </style>
+
+    <!-- Dark theme typography adjustments for better readability -->
+    <style name="AppTheme.Text.MetricValue" parent="@style/TextAppearance.Material3.HeadlineMedium">
+        <item name="android:textColor">?attr/colorOnSurface</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:fontFamily">sans-serif-condensed</item>
+        <item name="android:layout_marginBottom">2dp</item>
+        <item name="android:shadowColor">#40000000</item>
+        <item name="android:shadowDx">0</item>
+        <item name="android:shadowDy">1</item>
+        <item name="android:shadowRadius">2</item>
+    </style>
+
+    <style name="AppTheme.Text.CardTitle" parent="@style/TextAppearance.Material3.TitleMedium">
+        <item name="android:textColor">?attr/colorOnSurface</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_marginBottom">8dp</item>
+        <item name="android:shadowColor">#20000000</item>
+        <item name="android:shadowDx">0</item>
+        <item name="android:shadowDy">1</item>
+        <item name="android:shadowRadius">1</item>
+    </style>
+
+    <style name="AppTheme.Text.ButtonText" parent="@style/TextAppearance.Material3.LabelLarge">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:letterSpacing">0.125</item>
+        <item name="android:layout_marginBottom">0dp</item>
+        <item name="android:shadowColor">#40000000</item>
+        <item name="android:shadowDx">0</item>
+        <item name="android:shadowDy">1</item>
+        <item name="android:shadowRadius">1</item>
+    </style>
+
+    <!-- Enhanced contrast for dark theme status colors -->
+    <style name="AppTheme.Text.Success" parent="@style/TextAppearance.Material3.BodyMedium">
+        <item name="android:textColor">@color/success</item>
+        <item name="android:drawablePadding">8dp</item>
+        <item name="android:layout_marginBottom">0dp</item>
+        <item name="android:shadowColor">#40000000</item>
+        <item name="android:shadowDx">0</item>
+        <item name="android:shadowDy">1</item>
+        <item name="android:shadowRadius">2</item>
+    </style>
+
+    <style name="AppTheme.Text.Warning" parent="@style/TextAppearance.Material3.BodyMedium">
+        <item name="android:textColor">@color/warning</item>
+        <item name="android:drawablePadding">8dp</item>
+        <item name="android:layout_marginBottom">0dp</item>
+        <item name="android:shadowColor">#40000000</item>
+        <item name="android:shadowDx">0</item>
+        <item name="android:shadowDy">1</item>
+        <item name="android:shadowRadius">2</item>
+    </style>
+
+    <style name="AppTheme.Text.Error" parent="@style/TextAppearance.Material3.BodyMedium">
+        <item name="android:textColor">@color/error</item>
+        <item name="android:drawablePadding">8dp</item>
+        <item name="android:layout_marginBottom">0dp</item>
+        <item name="android:shadowColor">#40000000</item>
+        <item name="android:shadowDx">0</item>
+        <item name="android:shadowDy">1</item>
+        <item name="android:shadowRadius">2</item>
+    </style>
+
+</resources>

@@ -1,3 +1,27 @@
 <resources>
+    <!-- Material Design spacing values -->
     <dimen name="fab_margin">16dp</dimen>
+    <dimen name="spacing_xs">4dp</dimen>
+    <dimen name="spacing_small">8dp</dimen>
+    <dimen name="spacing_medium">16dp</dimen>
+    <dimen name="spacing_large">24dp</dimen>
+    <dimen name="spacing_xl">32dp</dimen>
+    
+    <!-- Card dimensions -->
+    <dimen name="card_margin">8dp</dimen>
+    <dimen name="card_padding">16dp</dimen>
+    <dimen name="card_corner_radius">12dp</dimen>
+    <dimen name="card_elevation">2dp</dimen>
+    
+    <!-- Button dimensions -->
+    <dimen name="button_height">48dp</dimen>
+    <dimen name="button_corner_radius">24dp</dimen>
+    
+    <!-- Text margins -->
+    <dimen name="text_margin_bottom">8dp</dimen>
+    <dimen name="text_margin_small">4dp</dimen>
+    
+    <!-- Breadcrumb dimensions -->
+    <dimen name="breadcrumb_separator_size">16dp</dimen>
+    <dimen name="breadcrumb_separator_margin">4dp</dimen>
 </resources>

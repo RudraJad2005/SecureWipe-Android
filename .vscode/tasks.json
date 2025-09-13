@@ -1,0 +1,15 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Gradle Build (assembleDebug)",
+			"type": "shell",
+			"command": "cmd /c gradlew.bat assembleDebug",
+			"args": [],
+			"problemMatcher": [
+				"$gcc"
+			],
+			"group": "build"
+		}
+	]
+}

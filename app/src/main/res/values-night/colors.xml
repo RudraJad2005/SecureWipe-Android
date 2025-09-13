@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Legacy colors for compatibility -->
+    <color name="colorPrimary">@color/md_theme_dark_primary</color>
+    <color name="colorPrimaryDark">@color/md_theme_dark_primary</color>
+    <color name="colorAccent">@color/md_theme_dark_secondary</color>
+    
+    <!-- Status Colors for Dark Theme -->
+    <color name="success">@color/success_dark</color>
+    <color name="warning">@color/warning_dark</color>
+    <color name="error">@color/error_dark</color>
+    <color name="info">@color/info_dark</color>
+    
+    <!-- Progress Colors for Dark Theme -->
+    <color name="progress_background">@color/progress_background_dark</color>
+    
+    <!-- Card Colors for Dark Theme -->
+    <color name="card_elevation_light">@color/card_elevation_dark</color>
+    
+    <!-- Gradient Colors for Dark Theme -->
+    <color name="gradient_start">@color/gradient_start_dark</color>
+    <color name="gradient_end">@color/gradient_end_dark</color>
+</resources>
